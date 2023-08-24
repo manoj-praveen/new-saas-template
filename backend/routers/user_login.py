@@ -69,7 +69,7 @@ def sign_in(request_payload: SignInSchema, db: Session = Depends(get_db)) -> Any
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect email"
         )
-    elif existing_user.t_delete:
+    if existing_user.t_delete:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user"
         )
@@ -154,7 +154,7 @@ def reset_password(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="The user with this email does not exist in the system.",
         )
-    elif user.t_delete:
+    if user.t_delete:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user"
         )
