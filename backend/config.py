@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     MAIL_PORT: int
     MAIL_SERVER: str
 
+    # store the values in .env file
     model_config = SettingsConfigDict(env_file=".env")
 
 
