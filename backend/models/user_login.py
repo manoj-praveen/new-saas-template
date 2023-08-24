@@ -1,5 +1,6 @@
 from sqlalchemy import TIMESTAMP, Column, String, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import UUID
+
 from backend.models.database import Base
 
 
@@ -21,4 +22,4 @@ class UserLogin(Base):
     )
     t_delete = Column(TIMESTAMP(timezone=True))
 
-    __table_args__ = (UniqueConstraint('email', name='user_login_email_key'),)
+    __table_args__ = (UniqueConstraint("email", name="user_login_email_key"),)

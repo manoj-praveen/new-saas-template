@@ -1,9 +1,9 @@
-from datetime import timedelta, datetime
+import secrets
+from datetime import datetime, timedelta
 from typing import Final, Optional
 
-from passlib.context import CryptContext
-import secrets
 from jose import jwt
+from passlib.context import CryptContext
 
 from backend.config import get_settings
 

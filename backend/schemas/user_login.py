@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, UUID4
+from pydantic import UUID4, BaseModel, EmailStr
 
 
 class SignUpSchema(BaseModel):

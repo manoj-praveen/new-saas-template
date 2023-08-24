@@ -1,8 +1,9 @@
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
+from fastapi_mail import ConnectionConfig, FastMail, MessageSchema
+from jinja2 import Environment, FileSystemLoader
 
 from backend.config import get_settings
 from backend.utils.utils import PASSWORD_REST_TOKEN_EXPIRY
-from jinja2 import Environment, FileSystemLoader
+
 settings = get_settings()
 
 conf = ConnectionConfig(
@@ -15,7 +16,7 @@ conf = ConnectionConfig(
     MAIL_STARTTLS=True,
     MAIL_SSL_TLS=False,
     USE_CREDENTIALS=True,
-    VALIDATE_CERTS=True
+    VALIDATE_CERTS=True,
 )
 SERVER_HOST = settings.SERVER_HOST
 EMAIL_TEMPLATES_DIR = settings.EMAIL_TEMPLATES_DIR
@@ -27,15 +28,13 @@ async def send_reset_password_email(email_to: str, token: str):
     env = Environment(loader=FileSystemLoader(EMAIL_TEMPLATES_DIR))
     template = env.get_template("reset_password.html")
     formatted_template = template.render(
-        email=email_to,
-        link=link,
-        valid_hours=valid_hours
+        email=email_to, link=link, valid_hours=valid_hours
     )
     message = MessageSchema(
-        subject=f"Password Reset Request",
+        subject="Password Reset Request",
         recipients=[email_to],
         body=formatted_template,
-        subtype="html"
+        subtype="html",
     )
     fm = FastMail(conf)
     await fm.send_message(message)

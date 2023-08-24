@@ -3,7 +3,6 @@ from backend.models.user_login import UserLogin
 
 
 class UserLoginDBHandler(BaseDBHandler):
-
     def __init__(self):
         super().__init__(model=UserLogin)
 
